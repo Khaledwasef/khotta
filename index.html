@@ -698,7 +698,7 @@
 
     // وظيفة الطلب عبر الواتساب
     function orderViaWhatsApp(productName, price, size, model) {
-        const phoneNumber = "01016135969"; // ضع رقمك هنا
+        const phoneNumber = "+201016135969"; // ضع رقمك هنا
         const message = `مرحباً، أود طلب ${productName}.\nالمودل ${model}\nالمقاس: ${size || 'لم يتم تحديد مقاس'}`;
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
@@ -709,4 +709,5 @@
     
     </script>
 </body>
+
 </html>
