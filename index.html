@@ -12,9 +12,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         :root {
-            --primary-color: #dcd9c8; /* البيج الفاتح */
-            --secondary-color: #79744e; /* الزيتي */
-            --accent-color: #a89f65; /* لون تكميلي */
+            --primary-color: #dcd9c8;
+            --secondary-color: #79744e;
+            --accent-color: #a89f65;
             --text-color: #333;
             --light-color: #f8f7f2;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -28,28 +28,26 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        /* إصلاح العلامة الزرقاء عند الضغط على العناصر */
-* {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-}
+        * {
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
 
-/* تحسين تجربة اللمس للأزرار والعناصر القابلة للنقر */
-button, .size, .filter-btn, .order-btn, .zoom-icon {
-    touch-action: manipulation;
-    -webkit-user-select: none;
-    user-select: none;
-}
+        button, .size, .filter-btn, .order-btn, .zoom-icon {
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+        }
 
-/* إصلاح خاص للصور */
-img {
-    -webkit-touch-callout: none;
-}
+        img {
+            -webkit-touch-callout: none;
+        }
         
         body {
             background-color: var(--primary-color);
             color: var(--text-color);
             line-height: 1.6;
+            padding-bottom: 60px; /* مساحة للأيقونات الثابتة في الأسفل */
         }
         
         .container {
@@ -59,71 +57,68 @@ img {
             padding: 20px 0;
         }
 
-        /* أضف هذه التنسيقات داخل الـ <style> */
-.product-image {
-    position: relative;
-    cursor: pointer;
-}
+        .product-image {
+            position: relative;
+            cursor: pointer;
+        }
 
-.zoom-icon {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    color: var(--secondary-color);
-    z-index: 10;
-}
+        .zoom-icon {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            color: var(--secondary-color);
+            z-index: 10;
+        }
 
-.zoom-icon:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: scale(1.1);
-}
+        .zoom-icon:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+        }
 
-/* نافذة التكبير */
-#image-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.95);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
+        #image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
 
-#modal-image {
-    max-width: 90%;
-    max-height: 90%;
-    border: 2px solid white;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-}
+        #modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            border: 2px solid white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
 
-#close-modal {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        #close-modal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-#close-modal:hover {
-    transform: rotate(90deg);
-    color: var(--accent-color);
-}
+        #close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
         
-        /* التصميم العلوي */
         header {
             background-color: white;
             box-shadow: var(--shadow);
@@ -198,7 +193,6 @@ img {
             width: 100%;
         }
         
-        /* الهيرو */
         .hero {
             background: linear-gradient(rgba(121, 116, 78, 0.8), rgba(121, 116, 78, 0.8)), url('https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3') no-repeat center/cover;
             height: 500px;
@@ -275,58 +269,6 @@ img {
             width: 80px;
             height: 3px;
             background-color: var(--accent-color);
-        }
-        
-        .excel-upload-section {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-        
-        .excel-upload-section h3 {
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-        }
-        
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            margin: 15px 0;
-        }
-        
-        .file-input-wrapper input[type="file"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-        
-        .file-input-label {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: var(--secondary-color);
-            color: white;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .file-input-label:hover {
-            background-color: var(--accent-color);
-        }
-        
-        .file-name {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #666;
         }
         
         .filters {
@@ -470,6 +412,11 @@ img {
             margin-bottom: 40px;
         }
         
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
         .footer-column h3 {
             font-size: 1.4rem;
             margin-bottom: 20px;
@@ -525,6 +472,105 @@ img {
             color: #e0e0e0;
         }
         
+        /* أيقونات وسائل التواصل - تصميم جديد */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* فيسبوك */
+        .social-icons a.facebook:hover {
+            background: #3b5998;
+        }
+        
+        /* إنستجرام */
+        .social-icons a.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        
+        /* تيك توك */
+        .social-icons a.tiktok:hover {
+            background: #000000;
+        }
+        
+        .footer-social {
+            margin-top: 25px;
+        }
+        
+        .footer-social h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        
+        .footer-social h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        /* شريط التواصل الثابت في الأسفل للجوال */
+        .mobile-social-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--secondary-color);
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-social-bar a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .mobile-social-bar a i {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .mobile-social-bar a:hover {
+            transform: translateY(-5px);
+            color: var(--accent-color);
+        }
+        
         /* تصميم متجاوب */
         @media (max-width: 768px) {
             .header-container {
@@ -553,6 +599,33 @@ img {
             .section-title {
                 font-size: 1.8rem;
             }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-column {
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-links {
+                padding: 0;
+            }
+            
+            .contact-info {
+                align-items: center;
+            }
+            
+            .social-icons {
+                margin-top: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -575,10 +648,105 @@ img {
             .btn{
                 margin-top: 5px;
             }
+            
+            .filters {
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .social-icons a {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+            
+            .mobile-social-bar a {
+                font-size: 0.75rem;
+            }
+            
+            .mobile-social-bar a i {
+                font-size: 20px;
+            }
+        }
+        
+        /* تحسينات للتكبير على الجوال */
+        @media (max-width: 768px) {
+            .zoom-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            #close-modal {
+                top: 15px;
+                right: 15px;
+                font-size: 30px;
+            }
+            
+            #modal-image {
+                max-width: 95%;
+                max-height: 80%;
+            }
+        }
+        
+        /* شريط التواصل الجانبي للشاشات الكبيرة */
+        .side-social {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 99;
+        }
+        
+        .side-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            color: white;
+            font-size: 22px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .side-social a:hover {
+            transform: translateY(-5px);
+            background: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .side-social {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- شريط التواصل الجانبي (للشاشات الكبيرة) -->
+    <div class="side-social">
+        <a href="https://facebook.com" target="_blank" title="فيسبوك">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" title="إنستجرام">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://tiktok.com" target="_blank" title="تيك توك">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </div>
+    
     <!-- الهيدر -->
     <header>
         <div class="container header-container">
@@ -615,8 +783,18 @@ img {
     <div class="container">
         <h2 class="section-title" id="products">منتجاتنا</h2>
         
-        <!-- قسم تحميل ملف Excel -->
-        
+        <!-- أيقونات التواصل في قسم المنتجات -->
+        <div class="social-icons">
+            <a href="https://facebook.com" class="facebook" target="_blank" title="فيسبوك">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com" class="instagram" target="_blank" title="إنستجرام">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://tiktok.com" class="tiktok" target="_blank" title="تيك توك">
+                <i class="fab fa-tiktok"></i>
+            </a>
+        </div>
         
         <div class="filters">
             <button class="filter-btn active" data-filter="all">الكل</button>
@@ -628,19 +806,31 @@ img {
         
         <div class="products-grid" id="products-container">
             <!-- سيتم تعبئة المنتجات هنا ديناميكيًا -->
-            <div class="placeholder">
-                
-            </div>
+            <div class="placeholder"></div>
         </div>
     </div>
     
     <!-- الفوتر -->
-    <footer>
+    <footer id="about">
         <div class="container">
-            <div class="footer-grid" id="about">
+            <div class="footer-grid">
                 <div class="footer-column">
                     <h3>عن خُطى</h3>
                     <p>متجر خُطى يقدم لكم أفضل تشكيلة من الأحذية الرجالية والنسائية التي تجمع بين الأناقة والجودة والراحة.</p>
+                    <div class="footer-social">
+                        <h4>تابعنا على</h4>
+                        <div class="social-icons">
+                            <a href="https://facebook.com" class="facebook" target="_blank" title="فيسبوك">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://instagram.com" class="instagram" target="_blank" title="إنستجرام">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://tiktok.com" class="tiktok" target="_blank" title="تيك توك">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="footer-column">
@@ -670,6 +860,11 @@ img {
                             <span>khaledwasef56@gmail.com</span>
                         </div>
                     </div>
+                    <div class="social-icons" style="margin-top: 25px;">
+                        <a href="https://wa.me/201016135969" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="tel:01016135969"><i class="fas fa-phone"></i></a>
+                        <a href="mailto:khaledwasef56@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
             </div>
             
@@ -679,29 +874,39 @@ img {
         </div>
     </footer>
     
-    <script>  // متغير لتخزين بيانات المنتجات
+    <!-- شريط التواصل الثابت في الأسفل للجوال -->
+    <div class="mobile-social-bar">
+        <a href="https://facebook.com" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            <span>فيسبوك</span>
+        </a>
+        <a href="https://instagram.com" target="_blank">
+            <i class="fab fa-instagram"></i>
+            <span>إنستجرام</span>
+        </a>
+        <a href="https://tiktok.com" target="_blank">
+            <i class="fab fa-tiktok"></i>
+            <span>تيك توك</span>
+        </a>
+    </div>
+    
+    <script>  
     let productsData = [];
 
-    // تحميل المنتجات من ملف Excel الموجود في مجلد المشروع
     async function loadProductsFromExcel() {
         try {
-            const response = await fetch('product.xlsx'); // لازم يكون في نفس مجلد HTML
+            const response = await fetch('product.xlsx');
             if (!response.ok) throw new Error('لم يتم العثور على ملف المنتجات');
 
             const data = await response.arrayBuffer();
             const workbook = XLSX.read(data, { type: 'array' });
 
-            // الحصول على أول ورقة
             const sheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[sheetName];
 
-            // تحويل إلى JSON
             const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-            // تخزين البيانات
             productsData = jsonData;
-            console.log(productsData)
-            // عرض جميع المنتجات
             displayProducts(productsData);
             
         } catch (error) {
@@ -709,51 +914,45 @@ img {
             document.getElementById('products-container').innerHTML = '<p>⚠ خطأ في تحميل الملف</p>';
         }
     }
-    // إنشاء عناصر نافذة التكبير
-const modal = document.createElement('div');
-modal.id = 'image-modal';
 
-const modalImg = document.createElement('img');
-modalImg.id = 'modal-image';
+    const modal = document.createElement('div');
+    modal.id = 'image-modal';
+    const modalImg = document.createElement('img');
+    modalImg.id = 'modal-image';
+    const closeBtn = document.createElement('div');
+    closeBtn.id = 'close-modal';
+    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    modal.appendChild(closeBtn);
+    modal.appendChild(modalImg);
+    document.body.appendChild(modal);
 
-const closeBtn = document.createElement('div');
-closeBtn.id = 'close-modal';
-closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    document.addEventListener('click', function(e) {
+        const zoomIcon = e.target.closest('.zoom-icon, .zoom-icon *');
+        const productImage = e.target.closest('.product-image img');
+        
+        if (zoomIcon || productImage) {
+            const imgElement = zoomIcon 
+                ? zoomIcon.closest('.product-image').querySelector('img')
+                : productImage;
+                
+            modalImg.src = imgElement.src;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        if (e.target === modal || e.target.closest('#close-modal')) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
 
-modal.appendChild(closeBtn);
-modal.appendChild(modalImg);
-document.body.appendChild(modal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
 
-// التعامل مع أحداث التكبير
-document.addEventListener('click', function(e) {
-    const zoomIcon = e.target.closest('.zoom-icon, .zoom-icon *');
-    const productImage = e.target.closest('.product-image img');
-    
-    if (zoomIcon || productImage) {
-        const imgElement = zoomIcon 
-            ? zoomIcon.closest('.product-image').querySelector('img')
-            : productImage;
-            
-        modalImg.src = imgElement.src;
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // منع التمرير
-    }
-    
-    if (e.target === modal || e.target.closest('#close-modal')) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // إعادة التمرير
-    }
-});
-
-// إغلاق النافذة بالضغط على ESC
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.style.display === 'flex') {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-});
-
-    // دالة لعرض المنتجات
     function displayProducts(products) {
         const container = document.getElementById('products-container');
         container.innerHTML = '';
@@ -785,7 +984,6 @@ document.addEventListener('keydown', (e) => {
             container.appendChild(productCard);
         });
 
-        // إعادة تعيين أحداث المقاسات
         document.querySelectorAll('.size').forEach(size => {
             size.addEventListener('click', function() {
                 this.parentElement.querySelectorAll('.size').forEach(s => {
@@ -795,7 +993,6 @@ document.addEventListener('keydown', (e) => {
             });
         });
 
-        // إعادة تعيين أحداث الطلب
         document.querySelectorAll('.order-btn').forEach((btn, index) => {
             btn.addEventListener('click', function() {
                 const product = products[index];
@@ -824,18 +1021,14 @@ document.addEventListener('keydown', (e) => {
         }
     });
 
-    // وظيفة الطلب عبر الواتساب
     function orderViaWhatsApp(productName, price, size, model) {
-        const phoneNumber = "+201016135969"; // ضع رقمك هنا
+        const phoneNumber = "+201016135969";
         const message = `مرحباً، أود طلب ${productName}.\nالمودل ${model}\nالمقاس: ${size || 'لم يتم تحديد مقاس'}`;
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
 
-    // تحميل المنتجات تلقائياً عند فتح الصفحة
     window.addEventListener('DOMContentLoaded', loadProductsFromExcel);
-    
     </script>
 </body>
 </html>
-
