@@ -27,6 +27,24 @@
             box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
         }
+
+        /* إصلاح العلامة الزرقاء عند الضغط على العناصر */
+* {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+/* تحسين تجربة اللمس للأزرار والعناصر القابلة للنقر */
+button, .size, .filter-btn, .order-btn, .zoom-icon {
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* إصلاح خاص للصور */
+img {
+    -webkit-touch-callout: none;
+}
         
         body {
             background-color: var(--primary-color);
@@ -820,3 +838,4 @@ document.addEventListener('keydown', (e) => {
     </script>
 </body>
 </html>
+
