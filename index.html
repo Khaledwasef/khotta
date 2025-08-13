@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-60M4PCEY1Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-60M4PCEY1Y');
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خُطى - متجر الأحذية الأنيقة</title>
@@ -49,6 +40,70 @@
             margin: 0 auto;
             padding: 20px 0;
         }
+
+        /* أضف هذه التنسيقات داخل الـ <style> */
+.product-image {
+    position: relative;
+    cursor: pointer;
+}
+
+.zoom-icon {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    color: var(--secondary-color);
+    z-index: 10;
+}
+
+.zoom-icon:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+}
+
+/* نافذة التكبير */
+#image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-image {
+    max-width: 90%;
+    max-height: 90%;
+    border: 2px solid white;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+#close-modal {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#close-modal:hover {
+    transform: rotate(90deg);
+    color: var(--accent-color);
+}
         
         /* التصميم العلوي */
         header {
@@ -636,6 +691,49 @@
             document.getElementById('products-container').innerHTML = '<p>⚠ خطأ في تحميل الملف</p>';
         }
     }
+    // إنشاء عناصر نافذة التكبير
+const modal = document.createElement('div');
+modal.id = 'image-modal';
+
+const modalImg = document.createElement('img');
+modalImg.id = 'modal-image';
+
+const closeBtn = document.createElement('div');
+closeBtn.id = 'close-modal';
+closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+modal.appendChild(closeBtn);
+modal.appendChild(modalImg);
+document.body.appendChild(modal);
+
+// التعامل مع أحداث التكبير
+document.addEventListener('click', function(e) {
+    const zoomIcon = e.target.closest('.zoom-icon, .zoom-icon *');
+    const productImage = e.target.closest('.product-image img');
+    
+    if (zoomIcon || productImage) {
+        const imgElement = zoomIcon 
+            ? zoomIcon.closest('.product-image').querySelector('img')
+            : productImage;
+            
+        modalImg.src = imgElement.src;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // منع التمرير
+    }
+    
+    if (e.target === modal || e.target.closest('#close-modal')) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // إعادة التمرير
+    }
+});
+
+// إغلاق النافذة بالضغط على ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
 
     // دالة لعرض المنتجات
     function displayProducts(products) {
@@ -647,22 +745,25 @@
 
             const productCard = document.createElement('div');
             productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <div class="product-image">
-                    <img src="${product.صورة}">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">${product.اسم}</h3>
-                    <div class="product-category">${product.الفئة || ''}</div>
-                    <div class="product-price">${product.السعر || 0} ج.م</div>
-                    <div class="sizes">
-                        ${sizes.map(size => `<div class="size">${size}</div>`).join('')}
-                    </div>
-                    <button class="order-btn">
-                        <span>اطلب عبر واتساب</span>
-                    </button>
-                </div>
-            `;
+           productCard.innerHTML = `
+    <div class="product-image">
+        <img src="${product.صورة}" alt="${product.اسم}">
+        <div class="zoom-icon">
+            <i class="fas fa-search-plus"></i>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3 class="product-title">${product.اسم}</h3>
+        <div class="product-category">${product.الفئة || ''}</div>
+        <div class="product-price">${product.السعر || 0} ج.م</div>
+        <div class="sizes">
+            ${sizes.map(size => `<div class="size">${size}</div>`).join('')}
+        </div>
+        <button class="order-btn">
+            <span>اطلب عبر واتساب</span>
+        </button>
+    </div>
+`;
             container.appendChild(productCard);
         });
 
@@ -718,6 +819,4 @@
     
     </script>
 </body>
-
 </html>
-
